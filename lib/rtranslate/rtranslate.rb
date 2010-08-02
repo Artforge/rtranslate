@@ -72,13 +72,15 @@ module Translate
         from = from ? Google::Language.abbrev(from) : nil
         to = Google::Language.abbrev(to)
         langpair = "#{from}|#{to}"
-
-        text.mb_chars.scan(/(.{1,500})/).inject("") do |result, st|
-          url = "#{GOOGLE_TRANSLATE_URL}?q=#{st}&langpair=#{langpair}&v=#{@version}"
-          if @key
-            url << "&key=#{@key}"
+        
+        if text.mb_chars
+          text.mb_chars.scan(/(.{1,500})/).inject("") do |result, st|
+            url = "#{GOOGLE_TRANSLATE_URL}?q=#{st}&langpair=#{langpair}&v=#{@version}"
+            if @key
+              url << "&key=#{@key}"
+            end
+            result += do_translate(url)
           end
-          result += do_translate(url)
         end
       else
         raise UnsupportedLanguagePair, "Translation from '#{from}' to '#{to}' isn't supported yet!"
@@ -95,10 +97,12 @@ module Translate
         post_options = {:langpair => "#{from}|#{to}", :v => @version}
         post_options[:key] = @key if @key
         
-        text.mb_chars.scan(/(.{1,500})/).inject("") do |result, st|
-          url = GOOGLE_TRANSLATE_URL
-          post_options[:q] = st
-          result += do_post_translate(url,post_options)
+        if text.mb_chars
+          text.mb_chars.scan(/(.{1,500})/).inject("") do |result, st|
+            url = GOOGLE_TRANSLATE_URL
+            post_options[:q] = st
+            result += do_post_translate(url,post_options)
+          end
         end
       else
         raise UnsupportedLanguagePair, "Translation from '#{from}' to '#{to}' isn't supported yet!"
