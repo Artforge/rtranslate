@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{artforge-rtranslate}
-  s.version = "1.3.2"
+  s.version = "1.3.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["shisen", "opengotham", "Artforge"]
-  s.date = %q{2010-07-02}
+  s.date = %q{2010-08-02}
   s.default_executable = %q{rtranslate}
   s.description = %q{A simple, unofficial, ruby client API for using Google Translate.}
   s.email = %q{adam@artforge.com}
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "README.txt",
      "Rakefile",
      "VERSION",
+     "artforge-rtranslate.gemspec",
      "bin/rtranslate",
      "lib/rtranslate.rb",
      "lib/rtranslate/detection.rb",

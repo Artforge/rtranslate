@@ -73,7 +73,7 @@ module Translate
         to = Google::Language.abbrev(to)
         langpair = "#{from}|#{to}"
         
-        if text.mb_chars
+        if text && text.mb_chars
           text.mb_chars.scan(/(.{1,500})/).inject("") do |result, st|
             url = "#{GOOGLE_TRANSLATE_URL}?q=#{st}&langpair=#{langpair}&v=#{@version}"
             if @key
@@ -97,7 +97,7 @@ module Translate
         post_options = {:langpair => "#{from}|#{to}", :v => @version}
         post_options[:key] = @key if @key
         
-        if text.mb_chars
+        if text && text.mb_chars
           text.mb_chars.scan(/(.{1,500})/).inject("") do |result, st|
             url = GOOGLE_TRANSLATE_URL
             post_options[:q] = st
